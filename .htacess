@@ -1,0 +1,23 @@
+# Activar el motor de reescritura
+RewriteEngine On
+
+# Permitir ejecución de PHP
+<FilesMatch "\.php$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+# Configuración para mostrar errores PHP (útil durante desarrollo)
+php_flag display_errors on
+php_value error_reporting E_ALL
+
+# Forzar UTF-8
+AddDefaultCharset UTF-8
+
+# Permitir acceso a los archivos incluidos
+<Files "includes/*.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Prevenir acceso directo a directorios
+Options -Indexes
