@@ -1,0 +1,316 @@
+<div style='background-color: #f9f9f9; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); font-family: Arial, sans-serif;'><h1 style='color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 15px; margin-bottom: 25px;'>MODULARIZACIÓN EN PHP</h1><div style='background-color: #e8f4f8; padding: 15px; border-left: 5px solid #3498db; margin-bottom: 30px;'><p style='font-size: 16px;'><strong>La Modularización</strong> es una técnica de programación que consiste en dividir un programa en partes independientes y reutilizables. En PHP, esto se logra principalmente mediante <span style='color: #e74c3c;'>funciones, clases, inclusión de archivos</span> y otras estructuras avanzadas como namespaces.</p></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>1. FUNCIONES EN PHP</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>¿Qué son las funciones?</h3><p>Las funciones son bloques de código reutilizables que realizan una tarea específica. Permiten:</p><ul style='list-style-type: square;'><li>Organizar el código en unidades lógicas</li><li>Evitar la repetición de código</li><li>Hacer el código más mantenible y legible</li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis básica:</h4><code style='font-family: Consolas, Monaco, monospace;'>function nombreFuncion($parametro1, $parametro2) {
+    // Código a ejecutar
+    
+    return $resultado; // Opcional: devuelve un valor
+}</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de función simple</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>function saludar($nombre) {
+    return "Hola, $nombre!";
+}
+
+$nombre = "María";
+echo saludar($nombre);</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Variable $nombre = María<br>Resultado de llamar a la función saludar(): <strong>Hola, María!</strong></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>2. FUNCIONES CON PARÁMETROS POR DEFECTO</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características:</h3><ul style='list-style-type: square;'><li>Permiten definir valores predeterminados para parámetros</li><li>Los parámetros con valores por defecto deben ir al final de la lista</li><li>Hacen que los argumentos sean opcionales al llamar a la función</li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis:</h4><code style='font-family: Consolas, Monaco, monospace;'>function nombreFuncion($parametroRequerido, $parametroOpcional1 = &#039;valor_por_defecto&#039;,
+                    $parametroOpcional2 = &#039;otro_valor_por_defecto&#039;) {
+    // Código a ejecutar
+    
+    return $resultado;
+}</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo con parámetros por defecto</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>function mostrarInformacion($nombre, $edad = 25, $ciudad = "Ciudad Victoria") {
+    return "Nombre: $nombre, Edad: $edad, Ciudad: $ciudad";
+}
+
+// Diferentes formas de llamar a la función
+echo mostrarInformacion("Juan", 30, "Monterrey");
+echo mostrarInformacion("Pedro", 28);
+echo mostrarInformacion("Ana");</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Llamada con todos los parámetros: <strong>Nombre: Juan, Edad: 30, Ciudad: Monterrey</strong><br>Llamada solo con nombre y edad: <strong>Nombre: Pedro, Edad: 28, Ciudad: Ciudad Victoria</strong><br>Llamada solo con nombre: <strong>Nombre: Ana, Edad: 25, Ciudad: Ciudad Victoria</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Explicación:</strong><br>- En el primer caso, proporcionamos los tres argumentos<br>- En el segundo caso, omitimos <code>$ciudad</code>, que toma su valor por defecto "Ciudad Victoria"<br>- En el tercer caso, solo proporcionamos <code>$nombre</code>, y tanto <code>$edad</code> como <code>$ciudad</code> toman sus valores por defecto</div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>3. FUNCIONES CON NÚMERO VARIABLE DE ARGUMENTOS</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características:</h3><ul style='list-style-type: square;'><li>Permiten pasar un número indefinido de argumentos a una función</li><li>Utilizan el operador de propagación (...) antes del nombre del parámetro</li><li>Los argumentos variables se recogen en un array dentro de la función</li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis:</h4><code style='font-family: Consolas, Monaco, monospace;'>function nombreFuncion(...$args) {
+    // $args es un array con todos los argumentos pasados
+    
+    // Podemos iterar sobre $args
+    foreach ($args as $argumento) {
+        // Hacer algo con cada argumento
+    }
+    
+    return $resultado;
+}</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo con argumentos variables</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>function sumarNumeros(...$numeros) {
+    $suma = 0;
+    foreach ($numeros as $numero) {
+        $suma += $numero;
+    }
+    return $suma;
+}
+
+// Podemos llamar a la función con cualquier cantidad de argumentos
+echo sumarNumeros(2, 4, 6);
+echo sumarNumeros(1, 3, 5, 7, 9);</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Suma de 2, 4, 6: <strong>12</strong><br>Suma de 1, 3, 5, 7, 9: <strong>25</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Nota:</strong> También es posible combinar parámetros normales con parámetros variables, siempre que los variables estén al final:<br><code style='background-color: #2c3e50; color: #ecf0f1; padding: 5px; border-radius: 3px; margin-top: 5px; display: block;'>function operacion($operador, ...$numeros) { /* ... */ }</code></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>4. FUNCIONES ANÓNIMAS (LAMBDAS)</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características:</h3><ul style='list-style-type: square;'><li>Son funciones sin nombre que pueden asignarse a variables</li><li>Útiles como callbacks para funciones como array_map, array_filter, etc.</li><li>Pueden acceder a variables del ámbito externo usando la palabra clave <code>use</code></li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis:</h4><code style='font-family: Consolas, Monaco, monospace;'>$variableFuncion = function($parametro1, $parametro2) use ($variableExterna) {
+    // Código a ejecutar
+    
+    return $resultado;
+};
+
+// Llamar a la función anónima
+$resultado = $variableFuncion($argumento1, $argumento2);</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de función anónima</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>$duplicar = function($x) {
+    return $x * 2;
+};
+
+$numeros = [1, 2, 3, 4, 5];
+
+// Usar la función anónima con array_map para procesar cada elemento del array
+$numerosDuplicados = array_map($duplicar, $numeros);
+echo implode(', ', $numerosDuplicados);</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Arreglo original: <strong>1, 2, 3, 4, 5</strong><br>Arreglo después de aplicar la función anónima: <strong>2, 4, 6, 8, 10</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Ejemplo con palabra clave 'use':</strong><br><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 3px; margin-top: 5px;'>$factor = 3;
+$multiplicar = function($x) use ($factor) {
+    return $x * $factor;
+};
+// $multiplicar ahora tiene acceso a la variable $factor del ámbito externo</pre></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>5. FUNCIONES FLECHA (ARROW FUNCTIONS)</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características:</h3><ul style='list-style-type: square;'><li>Introducidas en PHP 7.4</li><li>Sintaxis más concisa para funciones anónimas simples</li><li>Capturan automáticamente las variables del ámbito externo (sin 'use')</li><li>Limitadas a una sola expresión (no pueden contener bloques de código)</li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis:</h4><code style='font-family: Consolas, Monaco, monospace;'>$variableFuncion = fn($parametro) =&gt; expresión;
+
+// Es equivalente a:
+$variableFuncion = function($parametro) use ($var1, $var2, ...) {
+    return expresión;
+};</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de función flecha</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>$triplicar = fn($x) => $x * 3;
+
+$numeros = [1, 2, 3, 4, 5];
+
+// Usar la función flecha con array_map
+$numerosTriplicados = array_map($triplicar, $numeros);
+echo implode(', ', $numerosTriplicados);</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Arreglo original: <strong>1, 2, 3, 4, 5</strong><br>Arreglo después de aplicar la función flecha: <strong>3, 6, 9, 12, 15</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Comparación con captura de variables:</strong><br><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 3px; margin-top: 5px;'>// Función anónima con 'use'
+$factor = 4;
+$anonima = function($x) use ($factor) { return $x * $factor; };
+
+// Función flecha (capturas implícitas)
+$factor = 4;
+$flecha = fn($x) => $x * $factor;</pre></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>6. FUNCIONES RECURSIVAS</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características:</h3><ul style='list-style-type: square;'><li>Son funciones que se llaman a sí mismas</li><li>Necesitan una condición de terminación para evitar bucles infinitos</li><li>Útiles para resolver problemas que pueden descomponerse en subproblemas similares</li><li>Eficaces para recorrer estructuras de datos jerárquicas como árboles</li></ul></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de función recursiva: Factorial</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>function factorial($n) {
+    // Condición de terminación
+    if ($n <= 1) {
+        return 1;
+    } else {
+        // Llamada recursiva
+        return $n * factorial($n - 1);
+    }
+}
+
+echo "Factorial de 5: " . factorial(5);</pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Factorial de 5: <strong>120</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Explicación del proceso recursivo:</strong><br>factorial(5)<br>└── 5 * factorial(4) = 5 * 24 = 120<br>&nbsp;&nbsp;&nbsp;&nbsp;└── 4 * factorial(3) = 4 * 6 = 24<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 3 * factorial(2) = 3 * 2 = 6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 2 * factorial(1) = 2 * 1 = 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── factorial(1) = 1 (caso base)</div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>7. IMPORTAR ARCHIVOS EN PHP</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Funciones para importar archivos:</h3><table style='width: 100%; border-collapse: collapse; margin-top: 10px;'><tr style='background-color: #d4f7d4;'><th style='padding: 8px; border: 1px solid #27ae60; text-align: left;'>Función</th><th style='padding: 8px; border: 1px solid #27ae60; text-align: left;'>Descripción</th></tr><tr><td style='padding: 8px; border: 1px solid #27ae60;'><code>include</code></td><td style='padding: 8px; border: 1px solid #27ae60;'>Incluye y evalúa un archivo. Si el archivo no existe, genera un warning.</td></tr><tr style='background-color: #f0f7f0;'><td style='padding: 8px; border: 1px solid #27ae60;'><code>require</code></td><td style='padding: 8px; border: 1px solid #27ae60;'>Similar a include, pero genera un error fatal si el archivo no existe.</td></tr><tr><td style='padding: 8px; border: 1px solid #27ae60;'><code>include_once</code></td><td style='padding: 8px; border: 1px solid #27ae60;'>Incluye el archivo solo una vez, aunque se llame múltiples veces.</td></tr><tr style='background-color: #f0f7f0;'><td style='padding: 8px; border: 1px solid #27ae60;'><code>require_once</code></td><td style='padding: 8px; border: 1px solid #27ae60;'>Requiere el archivo solo una vez, genera error fatal si no existe.</td></tr></table></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Sintaxis:</h4><code style='font-family: Consolas, Monaco, monospace;'>// Incluir un archivo
+include &#039;ruta/al/archivo.php&#039;;
+
+// Requerir un archivo (error fatal si no existe)
+require &#039;ruta/al/archivo.php&#039;;
+
+// Incluir solo una vez
+include_once &#039;ruta/al/archivo.php&#039;;
+
+// Requerir solo una vez
+require_once &#039;ruta/al/archivo.php&#039;;</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de importación de archivos</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>// Archivo: includes/funciones_matematicas.php
+<?php
+function areaCirculo($radio) {
+    return pi() * pow($radio, 2);
+}
+
+function perimetroRectangulo($ancho, $alto) {
+    return 2 * ($ancho + $alto);
+}
+?>
+
+// Archivo principal
+<?php
+// Incluir el archivo de funciones
+require_once 'includes/funciones_matematicas.php';
+
+// Ahora podemos usar las funciones definidas en ese archivo
+echo 'Área de un círculo con radio 5: ' . areaCirculo(5);
+echo 'Perímetro de un rectángulo de 4x6: ' . perimetroRectangulo(4, 6);
+?></pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Área de un círculo con radio 5: <strong>78.539816339745</strong><br>Perímetro de un rectángulo de 4x6: <strong>20</strong></div><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Ventajas de la modularización con include/require:</strong><ul><li>Organiza el código en archivos separados por funcionalidad</li><li>Facilita la reutilización de código en diferentes proyectos</li><li>Mejora la mantenibilidad al dividir el código en unidades lógicas</li><li>Permite el trabajo en equipo donde diferentes desarrolladores trabajan en diferentes módulos</li></ul></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>8. CLASES Y OBJETOS COMO MÓDULOS</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Ventajas de la POO para modularización:</h3><ul style='list-style-type: square;'><li>Encapsula datos y comportamientos relacionados en una sola unidad</li><li>Facilita la reutilización mediante herencia y composición</li><li>Mejora la legibilidad y mantenibilidad del código</li><li>Permite modelar entidades del mundo real de forma más natural</li></ul></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de clase como módulo</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>// Archivo: includes/clase_usuario.php
+<?php
+class Usuario {
+   private $nombre;
+   private $email;
+   
+   public function __construct($nombre, $email) {
+       $this->nombre = $nombre;
+       $this->email = $email;
+   }
+   
+   public function obtenerInformacion() {
+       return "Nombre: {$this->nombre}, Email: {$this->email}";
+   }
+   
+   public function cambiarEmail($nuevoEmail) {
+       $this->email = $nuevoEmail;
+   }
+}
+?>
+
+// Archivo principal
+<?php
+// Incluir la clase
+require_once 'includes/clase_usuario.php';
+
+// Crear una instancia de Usuario
+$usuario = new Usuario("Carlos", "carlos@ejemplo.com");
+
+// Usar los métodos de la clase
+echo $usuario->obtenerInformacion();
+
+// Modificar el objeto
+$usuario->cambiarEmail("carlos.nuevo@ejemplo.com");
+echo $usuario->obtenerInformacion();
+?></pre><div style='background-color: #f0f0f0; padding: 15px; border-radius: 5px;'><strong>Resultado:</strong><br>Usuario creado: <strong>Nombre: Carlos, Email: carlos@ejemplo.com</strong><br>Usuario después de cambiar email: <strong>Nombre: Carlos, Email: carlos.nuevo@ejemplo.com</strong></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>9. ESPACIOS DE NOMBRES (NAMESPACES)</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>Características de los namespaces:</h3><ul style='list-style-type: square;'><li>Permiten organizar el código en grupos lógicos</li><li>Evitan conflictos de nombres entre clases, funciones y constantes</li><li>Posibilitan la creación de paquetes de código reusables</li><li>Facilitan la carga automática de clases (autoloading)</li></ul></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Definición de un namespace:</h4><code style='font-family: Consolas, Monaco, monospace;'>&lt;?php
+// Definir un namespace - debe ser la primera instrucción del archivo
+namespace MiAplicacion\Modulo;
+
+// Definir una clase en este namespace
+class MiClase {
+   // ...
+}
+
+// Definir una función en este namespace
+function miFuncion() {
+   // ...
+}
+
+// Definir una constante en este namespace
+const MI_CONSTANTE = &#039;valor&#039;;
+?&gt;</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de uso de namespaces</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>// Archivo: src/MiAplicacion/Usuarios/Usuario.php
+<?php
+namespace MiAplicacion\Usuarios;
+
+class Usuario {
+   private $nombre;
+   
+   public function __construct($nombre) {
+       $this->nombre = $nombre;
+   }
+   
+   public function saludar() {
+       return "Hola, soy {$this->nombre}";
+   }
+}
+?>
+
+// Archivo: src/MiAplicacion/Productos/Producto.php
+<?php
+namespace MiAplicacion\Productos;
+
+class Producto {
+   private $nombre;
+   
+   public function __construct($nombre) {
+       $this->nombre = $nombre;
+   }
+   
+   public function obtenerNombre() {
+       return $this->nombre;
+   }
+}
+?>
+
+// Archivo principal
+<?php
+// Usar clases de diferentes namespaces
+use MiAplicacion\Usuarios\Usuario;
+use MiAplicacion\Productos\Producto as ProductoTienda;
+
+// Crear instancias
+$usuario = new Usuario('Juan');
+$producto = new ProductoTienda('Laptop');
+
+echo $usuario->saludar();
+echo "Producto: " . $producto->obtenerNombre();
+?></pre><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Notas importantes sobre namespaces:</strong><ul><li>La declaración del namespace debe ser la primera instrucción en el archivo PHP</li><li>Se puede usar el alias <code>as</code> para renombrar las clases importadas</li><li>Para referirse a una clase del namespace global, use <code>\NombreClase</code></li><li>Los namespaces anidados se separan con <code>\</code> (barra invertida)</li></ul></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>10. AUTOLOADING DE CLASES</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>¿Qué es el autoloading?</h3><p>El autoloading es un mecanismo que permite cargar automáticamente las clases cuando se necesitan, sin tener que usar require/include para cada archivo de clase. Esto facilita enormemente la modularización de grandes aplicaciones.</p></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Registro de una función de autoloading:</h4><code style='font-family: Consolas, Monaco, monospace;'>&lt;?php
+// Registrar una función de autoloading
+spl_autoload_register(function ($nombreClase) {
+   // Convertir namespace separadores \ a separadores de directorio /
+   $archivo = str_replace(&#039;\\&#039;, DIRECTORY_SEPARATOR, $nombreClase) . &#039;.php&#039;;
+   
+   // Verificar si el archivo existe
+   if (file_exists($archivo)) {
+       require $archivo;
+   }
+});
+
+// Ahora podemos usar cualquier clase sin incluirla manualmente
+$objeto = new MiNamespace\MiClase(); // Cargará automáticamente MiNamespace/MiClase.php
+?&gt;</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de estructura para autoloading</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>// Estructura de directorios
+/*
+proyecto/
+├── autoload.php
+├── index.php
+└── src/
+   ├── App/
+   │   ├── Controllers/
+   │   │   └── UserController.php  (namespace App\Controllers)
+   │   └── Models/
+   │       └── User.php            (namespace App\Models)
+   └── Core/
+       └── Database.php            (namespace Core)
+*/
+
+// Archivo: autoload.php
+<?php
+spl_autoload_register(function ($class) {
+   // Directorio base para las clases
+   $baseDir = __DIR__ . '/src/';
+   
+   // Reemplazar separadores de namespace con separadores de directorio
+   $file = $baseDir . str_replace('\\', '/', $class) . '.php';
+   
+   // Si el archivo existe, incluirlo
+   if (file_exists($file)) {
+       require $file;
+   }
+});
+?>
+
+// Archivo: index.php
+<?php
+// Incluir el autoloader
+require_once 'autoload.php';
+
+// Usar clases de diferentes partes de la aplicación
+$usuario = new App\Models\User();
+$controller = new App\Controllers\UserController();
+$db = new Core\Database();
+
+// Las clases se cargarán automáticamente cuando se necesiten
+?></pre><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Ventajas del autoloading:</strong><ul><li>Elimina la necesidad de múltiples declaraciones <code>require/include</code></li><li>Carga las clases solo cuando se necesitan (optimización)</li><li>Facilita seguir convenciones como PSR-4 para la estructura de código</li><li>Es esencial para aplicaciones grandes y frameworks</li></ul></div></div><h2 style='color: #3498db; background-color: #eef2f7; padding: 10px; border-radius: 5px; margin-top: 30px;'>11. COMPOSER COMO GESTOR DE DEPENDENCIAS</h2><div style='background-color: #eaf7ea; padding: 15px; border-left: 5px solid #27ae60; margin-bottom: 15px;'><h3 style='color: #27ae60;'>¿Qué es Composer?</h3><p>Composer es un gestor de dependencias para PHP que permite declarar, descargar y gestionar las bibliotecas externas que utiliza tu proyecto. Además, proporciona un sistema de autoloading compatible con PSR-4.</p></div><div style='background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow: auto; margin-bottom: 20px;'><h4 style='color: #66d9ef; margin-top: 0;'>Archivo composer.json:</h4><code style='font-family: Consolas, Monaco, monospace;'>{
+   &quot;name&quot;: &quot;miempresa/miproyecto&quot;,
+   &quot;description&quot;: &quot;Descripción de mi proyecto&quot;,
+   &quot;type&quot;: &quot;project&quot;,
+   &quot;require&quot;: {
+       &quot;php&quot;: &quot;&gt;=7.4&quot;,
+       &quot;monolog/monolog&quot;: &quot;^2.0&quot;,
+       &quot;symfony/http-foundation&quot;: &quot;^5.0&quot;
+   },
+   &quot;require-dev&quot;: {
+       &quot;phpunit/phpunit&quot;: &quot;^9.0&quot;
+   },
+   &quot;autoload&quot;: {
+       &quot;psr-4&quot;: {
+           &quot;MiAplicacion\\&quot;: &quot;src/&quot;
+       }
+   },
+   &quot;autoload-dev&quot;: {
+       &quot;psr-4&quot;: {
+           &quot;Tests\\&quot;: &quot;tests/&quot;
+       }
+   }
+}</code></div><h3 style='color: #d35400; margin-top: 25px; background-color: #ffeaa7; padding: 8px; border-radius: 5px;'>&#11088; Ejemplo de uso de Composer</h3><div style='background-color: #f1f1f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 2px solid #d35400;'><pre style='background-color: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 15px;'>// Instalar dependencias (desde la línea de comandos)
+// $ composer install
+
+// Archivo: index.php
+<?php
+// Incluir el autoloader de Composer
+require 'vendor/autoload.php';
+
+// Usar bibliotecas externas
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// Usar clases de tu propia aplicación (autoloaded según PSR-4)
+use MiAplicacion\Controllers\HomeController;
+
+// Crear un logger
+$log = new Logger('nombre');
+$log->pushHandler(new StreamHandler('logs/app.log', Logger::WARNING));
+
+// Registrar un mensaje
+$log->warning('Esto es un mensaje de advertencia');
+
+// Usar tu propia clase
+$controller = new HomeController();
+$controller->mostrarInicio();
+?></pre><div style='margin-top: 15px; background-color: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3;'><strong>Ventajas de Composer:</strong><ul><li>Gestión de dependencias automatizada</li><li>Autoloading optimizado según estándares PSR</li><li>Facilita la reutilización de paquetes de código de la comunidad</li><li>Maneja las versiones y dependencias transitivas</li><li>Se ha convertido en el estándar de facto para proyectos PHP modernos</li></ul></div></div><div style='background-color: #f2f8ff; padding: 15px; border-radius: 5px; border: 1px solid #3498db; margin-top: 30px;'><h3 style='color: #3498db; text-align: center;'>COMPARACIÓN DE TÉCNICAS DE MODULARIZACIÓN EN PHP</h3><table style='width: 100%; border-collapse: collapse; margin-top: 15px;'><thead style='background-color: #3498db; color: white;'><tr><th style='padding: 10px; text-align: left; border: 1px solid #ccc;'>Técnica</th><th style='padding: 10px; text-align: left; border: 1px solid #ccc;'>Uso Ideal</th><th style='padding: 10px; text-align: left; border: 1px solid #ccc;'>Ventajas</th><th style='padding: 10px; text-align: left; border: 1px solid #ccc;'>Limitaciones</th></tr></thead><tbody><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Funciones</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Operaciones reutilizables simples</td><td style='padding: 10px; border: 1px solid #ccc;'>Fácil de implementar, bajo acoplamiento</td><td style='padding: 10px; border: 1px solid #ccc;'>No encapsula estado, limitada a operaciones simples</td></tr><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Include/Require</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Compartir código entre archivos</td><td style='padding: 10px; border: 1px solid #ccc;'>Simple, funciona en todas las versiones</td><td style='padding: 10px; border: 1px solid #ccc;'>Puede causar conflictos de nombres</td></tr><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Clases/Objetos</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Modelar entidades y comportamientos</td><td style='padding: 10px; border: 1px solid #ccc;'>Encapsula datos y funcionalidad</td><td style='padding: 10px; border: 1px solid #ccc;'>Más verboso para operaciones simples</td></tr><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Namespaces</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Organizar código en proyectos grandes</td><td style='padding: 10px; border: 1px solid #ccc;'>Evita conflictos de nombres</td><td style='padding: 10px; border: 1px solid #ccc;'>Requiere PHP 5.3+, cierta complejidad</td></tr><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Autoloading</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Cargar clases bajo demanda</td><td style='padding: 10px; border: 1px solid #ccc;'>Elimina requires/includes manuales</td><td style='padding: 10px; border: 1px solid #ccc;'>Requiere convención de nombres/directorios</td></tr><tr><td style='padding: 10px; border: 1px solid #ccc; background-color: #ecf0f1;'><strong>Composer</strong></td><td style='padding: 10px; border: 1px solid #ccc;'>Gestionar dependencias externas</td><td style='padding: 10px; border: 1px solid #ccc;'>Estándar en PHP moderno, autoloading</td><td style='padding: 10px; border: 1px solid #ccc;'>Requiere aprendizaje, dependencia externa</td></tr></tbody></table></div><div style='background-color: #fffaeb; padding: 15px; border-radius: 5px; border-left: 5px solid #f1c40f; margin-top: 30px;'><h3 style='color: #f39c12; text-align: center;'>CONSEJOS PRÁCTICOS PARA MODULARIZACIÓN</h3><ol style='padding-left: 20px;'><li><strong>Principio de Responsabilidad Única</strong> - Cada módulo debe tener una sola razón para cambiar</li><li><strong>Bajo acoplamiento, alta cohesión</strong> - Minimiza dependencias entre módulos, maximiza relaciones dentro de ellos</li><li><strong>Utiliza interfaces</strong> - Define contratos para tus módulos, facilitando su sustitución e interoperabilidad</li><li><strong>Sigue estándares</strong> - Adopta convenciones como PSR-4 para estructura de directorios y nombres</li><li><strong>Piensa en la reutilización</strong> - Diseña módulos que puedan usarse en diferentes contextos o proyectos</li><li><strong>Documenta tus módulos</strong> - Incluye información sobre propósito, uso y parámetros</li><li><strong>Testea cada módulo</strong> - Asegura que cada componente funciona correctamente de forma aislada</li></ol></div></div>

@@ -375,196 +375,197 @@
       </div>
     </footer>
 
-    <script>
-      function loadContent(file) {
-        // Mostrar pantalla de carga
-        document.getElementById("result").innerHTML = `
-                <div class="result-header">
-                    <h2>${getTitle(file)}</h2>
-                    <p>Cargando contenido...</p>
-                </div>
-                <div class="result-content">
-                    <div class="loading">
-                        <div class="loader"></div>
-                    </div>
-                </div>
-            `;
+      <script
+    function loadContent(file) {
+      // Mostrar pantalla de carga
+      document.getElementById("result").innerHTML = `
+              <div class="result-header">
+                  <h2>${getTitle(file)}</h2>
+                  <p>Cargando contenido...</p>
+              </div>
+              <div class="result-content">
+                  <div class="loading">
+                      <div class="loader"></div>
+                  </div>
+              </div>
+          `;
 
-        // Cargar el archivo PHP
-        fetch(file + ".php")
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("No se pudo cargar el archivo: " + file + ".php");
-            }
-            return response.text();
-          })
-          .then((data) => {
-            // Ejecutar el PHP y mostrar resultados
-            fetch("ejecutar.php", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: "file=" + encodeURIComponent(file),
-            })
-              .then((response) => response.text())
-              .then((result) => {
-                const highlightedCode = syntaxHighlight(data);
-
-                document.getElementById("result").innerHTML = `
-                            <div class="result-header">
-                                <h2>${getTitle(file)}</h2>
-                                <p>${getDescription(file)}</p>
-                            </div>
-                            <div class="result-content">
-                                <div class="tab-container">
-                                    <div class="tab active" onclick="switchTab('code')">Código</div>
-                                    <div class="tab" onclick="switchTab('output')">Resultado</div>
-                                </div>
-                                
-                                <div id="code-tab" class="tab-content active">
-                                    <pre><code>${highlightedCode}</code></pre>
-                                </div>
-                                
-                                <div id="output-tab" class="tab-content">
-                                    <div class="result-output">
-                                        ${result}
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-              })
-              .catch((error) => {
-                document.getElementById("result").innerHTML = `
-                            <div class="result-header">
-                                <h2>Error</h2>
-                                <p>Ocurrió un problema al ejecutar el código</p>
-                            </div>
-                            <div class="result-content">
-                                <div class="error-message">
-                                    <h3>Error:</h3>
-                                    <p>${error.message}</p>
-                                </div>
-                            </div>
-                        `;
-              });
-          })
-          .catch((error) => {
-            document.getElementById("result").innerHTML = `
-                        <div class="result-header">
-                            <h2>Error</h2>
-                            <p>No se pudo cargar el archivo</p>
-                        </div>
-                        <div class="result-content">
-                            <div class="error-message">
-                                <h3>Error:</h3>
-                                <p>${error.message}</p>
-                            </div>
-                        </div>
-                    `;
-          });
-      }
-
-      function switchTab(tabName) {
-        // Ocultar todos los tabs
-        document.querySelectorAll(".tab-content").forEach((tab) => {
-          tab.classList.remove("active");
-        });
-
-        // Desactivar todos los botones de tab
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-        });
-
-        // Activar el tab seleccionado
-        document.getElementById(tabName + "-tab").classList.add("active");
-
-        // Activar el botón del tab
-        document.querySelectorAll(".tab").forEach((tab) => {
-          if (tab.textContent.toLowerCase().includes(tabName)) {
-            tab.classList.add("active");
+      // Cargar el archivo PHP
+      fetch(file + ".php")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("No se pudo cargar el archivo: " + file + ".php");
           }
+          return response.text();
+        })
+        .then((data) => {
+          // Ejecutar el PHP y mostrar resultados
+          fetch("ejecutar.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "file=" + encodeURIComponent(file),
+          })
+            .then((response) => response.text())
+            .then((result) => {
+              const highlightedCode = syntaxHighlight(data);
+
+              document.getElementById("result").innerHTML = `
+                          <div class="result-header">
+                              <h2>${getTitle(file)}</h2>
+                              <p>${getDescription(file)}</p>
+                          </div>
+                          <div class="result-content">
+                              <div class="tab-container">
+                                  <div class="tab active" onclick="switchTab('code')">Código</div>
+                                  <div class="tab" onclick="switchTab('output')">Resultado</div>
+                              </div>
+                              
+                              <div id="code-tab" class="tab-content active">
+                                  <pre><code>${highlightedCode}</code></pre>
+                              </div>
+                              
+                              <div id="output-tab" class="tab-content">
+                                  <div class="result-output">
+                                      ${result}
+                                  </div>
+                              </div>
+                          </div>
+                      `;
+            })
+            .catch((error) => {
+              document.getElementById("result").innerHTML = `
+                          <div class="result-header">
+                              <h2>Error</h2>
+                              <p>Ocurrió un problema al ejecutar el código</p>
+                          </div>
+                          <div class="result-content">
+                              <div class="error-message">
+                                  <h3>Error:</h3>
+                                  <p>${error.message}</p>
+                              </div>
+                          </div>
+                      `;
+            });
+        })
+        .catch((error) => {
+          document.getElementById("result").innerHTML = `
+                      <div class="result-header">
+                          <h2>Error</h2>
+                          <p>No se pudo cargar el archivo</p>
+                      </div>
+                      <div class="result-content">
+                          <div class="error-message">
+                              <h3>Error:</h3>
+                              <p>${error.message}</p>
+                          </div>
+                      </div>
+                  `;
         });
-      }
+    }
 
-      function getTitle(file) {
-        const titles = {
-          "01_escalares": "Tipos de Datos Escalares",
-          "02_arreglos": "Arreglos y Colecciones",
-          "03_tda": "Tipos de Datos Abstractos (TDA)",
-          "04_repeticion": "Estatutos de Repetición",
-          "05_decision": "Estatutos de Decisión",
-          "06_modularizacion": "Modularización",
-        };
-        return titles[file] || "Ejemplo";
-      }
+    function switchTab(tabName) {
+      // Ocultar todos los tabs
+      document.querySelectorAll(".tab-content").forEach((tab) => {
+        tab.classList.remove("active");
+      });
 
-      function getDescription(file) {
-        const descriptions = {
-          "01_escalares":
-            "Los tipos básicos que almacenan un solo valor: enteros, flotantes, cadenas y booleanos",
-          "02_arreglos":
-            "Estructuras que almacenan múltiples valores con diferentes tipos de índices",
-          "03_tda":
-            "Estructuras complejas que encapsulan datos y operaciones relacionadas",
-          "04_repeticion":
-            "Estructuras que permiten ejecutar código múltiples veces bajo condiciones",
-          "05_decision":
-            "Estructuras que permiten ejecutar diferentes bloques de código según condiciones",
-          "06_modularizacion":
-            "Técnicas para dividir el código en partes reutilizables y mantenibles",
-        };
-        return descriptions[file] || "";
-      }
+      // Desactivar todos los botones de tab
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.classList.remove("active");
+      });
 
-      function syntaxHighlight(code) {
-        // Escapar HTML para evitar problemas
-        code = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // Activar el tab seleccionado
+      document.getElementById(tabName + "-tab").classList.add("active");
 
-        // Resaltar palabras clave
-        code = code.replace(
-          /\b(if|else|elseif|while|do|for|foreach|function|return|class|public|private|protected|echo|include|require|switch|case|break|continue|default|new|try|catch|throw)\b/g,
-          '<span class="code-keyword">$1</span>',
-        );
+      // Activar el botón del tab
+      document.querySelectorAll(".tab").forEach((tab) => {
+        if (tab.textContent.toLowerCase().includes(tabName)) {
+          tab.classList.add("active");
+        }
+      });
+    }
 
-        // Resaltar strings
-        code = code.replace(
-          /(['"])(.*?)\1/g,
-          '<span class="code-string">$1$2$1</span>',
-        );
+    function getTitle(file) {
+      const titles = {
+        "01_escalares": "Tipos de Datos Escalares",
+        "02_arreglos": "Arreglos y Colecciones",
+        "03_tda": "Tipos de Datos Abstractos (TDA)",
+        "04_repeticion": "Estatutos de Repetición",
+        "05_decision": "Estatutos de Decisión",
+        "06_modularizacion": "Modularización",
+      };
+      return titles[file] || "Ejemplo";
+    }
 
-        // Resaltar comentarios
-        code = code.replace(
-          /(\/\/.*?$|\/\*[\s\S]*?\*\/)/gm,
-          '<span class="code-comment">$1</span>',
-        );
+    function getDescription(file) {
+      const descriptions = {
+        "01_escalares":
+          "Los tipos básicos que almacenan un solo valor: enteros, flotantes, cadenas y booleanos",
+        "02_arreglos":
+          "Estructuras que almacenan múltiples valores con diferentes tipos de índices",
+        "03_tda":
+          "Estructuras complejas que encapsulan datos y operaciones relacionadas",
+        "04_repeticion":
+          "Estructuras que permiten ejecutar código múltiples veces bajo condiciones",
+        "05_decision":
+          "Estructuras que permiten ejecutar diferentes bloques de código según condiciones",
+        "06_modularizacion":
+          "Técnicas para dividir el código en partes reutilizables y mantenibles",
+      };
+      return descriptions[file] || "";
+    }
 
-        // Resaltar variables
-        code = code.replace(
-          /(\$[a-zA-Z_]\w*)/g,
-          '<span class="code-variable">$1</span>',
-        );
+    function syntaxHighlight(code) {
+      // Escapar HTML para evitar problemas
+      code = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-        // Resaltar números
-        code = code.replace(
-          /\b(\d+)\b/g,
-          '<span class="code-number">$1</span>',
-        );
+      // Resaltar palabras clave
+      code = code.replace(
+        /\b(if|else|elseif|while|do|for|foreach|function|return|class|public|private|protected|echo|include|require|switch|case|break|continue|default|new|try|catch|throw)\b/g,
+        '<span class="code-keyword">$1</span>',
+      );
 
-        // Resaltar funciones
-        code = code.replace(
-          /\b([a-zA-Z_]\w*)\s*\(/g,
-          '<span class="code-function">$1</span>(',
-        );
+      // Resaltar strings
+      code = code.replace(
+        /(['"])(.*?)\1/g,
+        '<span class="code-string">$1$2$1</span>',
+      );
 
-        // Resaltar operadores
-        code = code.replace(
-          /(\+|\-|\*|\/|%|=|==|===|!=|!==|&lt;|&gt;|&lt;=|&gt;=|\?|:|\.\.|\.)/g,
-          '<span class="code-operator">$1</span>',
-        );
+      // Resaltar comentarios
+      code = code.replace(
+        /(\/\/.*?$|\/\*[\s\S]*?\*\/)/gm,
+        '<span class="code-comment">$1</span>',
+      );
 
-        return code;
-      }
-    </script>
-  </body>
+      // Resaltar variables
+      code = code.replace(
+        /(\$[a-zA-Z_]\w*)/g,
+        '<span class="code-variable">$1</span>',
+      );
+
+      // Resaltar números
+      code = code.replace(
+        /\b(\d+)\b/g,
+        '<span class="code-number">$1</span>',
+      );
+
+      // Resaltar funciones
+      code = code.replace(
+        /\b([a-zA-Z_]\w*)\s*\(/g,
+        '<span class="code-function">$1</span>(',
+      );
+
+      // Resaltar operadores
+      code = code.replace(
+        /(\+|\-|\*|\/|%|=|==|===|!=|!==|&lt;|&gt;|&lt;=|&gt;=|\?|:|\.\.|\.)/g,
+        '<span class="code-operator">$1</span>',
+      );
+
+      return code;
+    }
+  </script>
+
+ </body>
 </html>
